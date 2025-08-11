@@ -40,6 +40,11 @@ export class NatsAdapter implements IMessageAdapter {
 
   @Init()
   async init(){
+    if (process.env.NODE_ENV === 'unittest') {
+      this.logger?.info('⚠️ Skipping NatsAdapter initialization in unittest environment');
+      return;
+    }
+
     this.client = await this.natsConnectionProvider.getConnection();
     this.logger.info('✅ [ NatsAdapter ] loaded');
   }

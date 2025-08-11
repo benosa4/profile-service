@@ -11,4 +11,4 @@ run/
 *.un~
 .tsbuildinfo
 .tsbuildinfo.*
-configuration.yml
+# configuration.yml is committed for testing

@@ -1,0 +1,17 @@
+http:
+  port: 8080
+scylla:
+  region: local
+  endpoint: http://localhost:8000
+  accessKey: test
+  secretKey: test
+nats:
+  servers: nats://localhost:4222
+  auth:
+    username: test
+    password: test
+  topic: test.topic
+  ACCOUNT_PUBLIC_KEY: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+  NATS_AUTH_NKEY_SEED: SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+keycloak:
+  jwksUri: http://localhost:8080/.well-known/jwks.json

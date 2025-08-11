@@ -21,6 +21,10 @@ export class ScyllaAdapter implements IScyllaAdapter {
 
   @Init()
   async init() {
+    if (process.env.NODE_ENV === 'unittest') {
+      this.logger?.info('⚠️ Skipping ScyllaAdapter initialization in unittest environment');
+      return;
+    }
     this.client = await this.scyllaConnectionProvider.getConnection();
     this.logger.info("✅ [ ScyllaAdapter ] loaded");
   }
