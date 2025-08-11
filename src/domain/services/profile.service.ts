@@ -8,7 +8,8 @@ import { ProfileDTO, ProfileCreateInput, ProfilePatchInput } from '../../applica
 import { ProfileState, reduce, ProfileEvent } from '../aggregate/profile.aggregate';
 import { validateCreateInput, validatePatchInput } from '../../application/dtos/validators';
 
-const SNAPSHOT_EVERY = 100;
+// create snapshot every N events
+const SNAPSHOT_EVERY = 10;
 const IDEMP_TTL = 86400;
 
 @Provide('ProfileService')
@@ -71,7 +72,8 @@ export class ProfileService implements ProfileServiceInterface {
     const seq = (last?.seq ?? 0) + 1;
     await this.eventStore.append(userId, event, last?.seq);
     let state = reduce(null, event, userId, seq);
-    if (seq % SNAPSHOT_EVERY === 0) {
+    // always snapshot the initial state and then every SNAPSHOT_EVERY events
+    if (seq === 1 || seq % SNAPSHOT_EVERY === 0) {
       await this.snapshotStore.put(userId, state, seq, seq);
     }
     return state;

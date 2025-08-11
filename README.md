@@ -1,29 +1,74 @@
-# my_midway_project
+# Profile Service
 
-## QuickStart
+A Midway-based service that manages user profiles using event sourcing with snapshots.
 
-<!-- add docs here for user -->
+## English
 
-see [midway docs][midway] for more detail.
-
-### Development
+### Running
 
 ```bash
-$ npm i
-$ npm run dev
-$ open http://localhost:7001/
+npm install
+npm run dev
 ```
 
-### Deploy
+### API
+
+| Method | Path                                  | Description                  |
+| ------ | ------------------------------------- | ---------------------------- |
+| GET    | `/api/v1/health`                      | health check                 |
+| GET    | `/profiles/:userId`                   | get profile by user id       |
+| GET    | `/profiles/by-username/:username`     | get profile by username      |
+| PUT    | `/profiles/:userId`                   | create profile               |
+| PATCH  | `/profiles/:userId`                   | update profile               |
+
+### Creating a profile
+
+```http
+PUT /profiles/<userId>
+Content-Type: application/json
+
+{
+  "username": "john",
+  "display_name": "John",
+  "bio": "about me"
+}
+```
+
+## Русский
+
+### Запуск
 
 ```bash
-$ npm start
+npm install
+npm run dev
 ```
 
-### npm scripts
+### API
 
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
+| Метод | Путь                                   | Описание                     |
+| ----- | -------------------------------------- | ---------------------------- |
+| GET   | `/api/v1/health`                       | проверка состояния           |
+| GET   | `/profiles/:userId`                    | получить профиль по userId   |
+| GET   | `/profiles/by-username/:username`      | получить профиль по имени    |
+| PUT   | `/profiles/:userId`                    | создать профиль              |
+| PATCH | `/profiles/:userId`                    | изменить профиль             |
 
+### Создание профиля
 
-[midway]: https://midwayjs.org
+```http
+PUT /profiles/<userId>
+Content-Type: application/json
+
+{
+  "username": "john",
+  "display_name": "John",
+  "bio": "about me"
+}
+```
+
+### Tests
+
+```bash
+npm test
+```
+
