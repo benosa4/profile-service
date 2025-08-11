@@ -15,3 +15,15 @@ nats:
   NATS_AUTH_NKEY_SEED: SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 keycloak:
   jwksUri: http://localhost:8080/.well-known/jwks.json
+alternator:
+  endpoint: http://scylla-node:8000
+  region: eu-west-1
+tables:
+  events: profiles_events
+  snapshots: profiles_snapshots
+  idem: profiles_idem
+  locks: profiles_username_locks
+snapshots:
+  every: 100
+idempotency:
+  ttlSec: 86400
