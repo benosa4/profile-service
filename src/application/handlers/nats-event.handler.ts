@@ -39,6 +39,11 @@ export class NatsEventHandler {
 
   @Init()
   async init() {
+    if (process.env.NODE_ENV === 'unittest') {
+      this.logger?.info('⚠️ Skipping NATS event handler initialization in unittest environment');
+      return;
+    }
+
     this.topic = this.configService.get<string>('nats.topic');
     this.logger.info(`✅ Подписка на топик: ${this.topic}`);
     if (!this.topic) {

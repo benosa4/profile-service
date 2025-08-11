@@ -306,6 +306,11 @@ export class NatsAuthorizerService implements INatsAuthorizerService {
 
   @Init()
   async init(): Promise<void> {
+    if (process.env.NODE_ENV === 'unittest') {
+      this.logger?.info('⚠️ Skipping NatsAuthorizerService initialization in unittest environment');
+      return;
+    }
+
     this.ACCOUNT_PUBLIC_KEY = this.configService.get<string>('nats.ACCOUNT_PUBLIC_KEY');
     this.NATS_AUTH_NKEY_SEED = this.configService.get<string>('nats.NATS_AUTH_NKEY_SEED');
     if (!this.ACCOUNT_PUBLIC_KEY || !this.NATS_AUTH_NKEY_SEED) {

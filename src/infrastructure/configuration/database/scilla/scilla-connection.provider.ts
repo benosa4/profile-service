@@ -72,6 +72,10 @@ export class ScyllaConnectionProvider {
 
   @Init()
   async init() {
+    if (process.env.NODE_ENV === 'unittest') {
+      this.logger?.info('⚠️ Skipping ScyllaDB connection in unittest environment');
+      return;
+    }
     await this.getConnection();
     this.logger.info('✅ [ ScyllaConnectionProvider ] Loaded');
   }

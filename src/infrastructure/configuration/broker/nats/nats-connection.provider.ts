@@ -86,7 +86,12 @@ export class NatsConnectionProvider {
 
   @Init()
   async init() {
-    // this.logger = this.loggerService.getLogger(NatsConnectionProvider.name);
+    // Avoid network connections during unit tests
+    if (process.env.NODE_ENV === 'unittest') {
+      this.logger?.info('⚠️ Skipping NATS connection in unittest environment');
+      return;
+    }
+
     this.logger.info(`✅ Подключение к NATS`);
     await this.connectToNats();
     this.logger.info(`✅ [ NatsConnectionProvider ] loaded`);

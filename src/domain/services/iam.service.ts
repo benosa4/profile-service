@@ -59,6 +59,11 @@ export class IAMService implements IIAMService {
 
   @Init()
   async init(){
+    if (process.env.NODE_ENV === 'unittest') {
+      this.logger?.info('⚠️ Skipping IAMService initialization in unittest environment');
+      return;
+    }
+
     this.jwksUri = this.configService.get<string>("keycloak.jwksUri");
 
     if (!this.jwksUri) {
